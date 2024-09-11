@@ -1,0 +1,6 @@
+**node_modules
+*.package-lock.json
+*.env
+cijfers.json
+index.js
+calendar.ics
