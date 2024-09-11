@@ -1,11 +1,11 @@
 import axios from "axios";
 import somtoday from "somtoday.js";
-import dotenv from "dotenv";
+import { config as dotenvConfig } from "dotenv";
 import { Convert } from "./convertdata";
-import fs from "fs";
+import { writeFileSync } from "fs";
 import ical from "ical-generator";
 
-dotenv.config();
+dotenvConfig();
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
@@ -39,7 +39,7 @@ async function main() {
         Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
-    },
+    }
   );
   const data = Convert.toWelcome(JSON.stringify(res.data)).items;
 
@@ -51,13 +51,11 @@ async function main() {
     datum: new Date(item.datumTijd),
   })) satisfies Homework[];
 
-  console.log(formattedData);
-
   for (const homework of formattedData) {
     addHomeworkToCalendar(homework);
   }
 
-  fs.writeFileSync("calendar.ics", calendar.toString());
+  writeFileSync("calendar.ics", calendar.toString());
 }
 
 interface Homework {
@@ -81,11 +79,12 @@ function addHomeworkToCalendar(homework: Homework) {
   const description = homework.omschrijving || homework.onderwerp;
 
   // day before at 17:00
-  const dayBefore = new Date(homework.datum.getTime() - 86400000).setHours(17);
+  const dayBefore = new Date(homework.datum.getTime() - 24 * 60 * 60 * 1000);
+  dayBefore.setHours(17, 0, 0, 0);
 
   calendar.createEvent({
     start: homework.datum,
-    end: new Date(homework.datum.getTime() + 3600),
+    end: new Date(homework.datum.getTime() + 60 * 60 * 1000),
     summary: title,
     description,
     alarms: [{ trigger: dayBefore }],

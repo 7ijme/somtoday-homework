@@ -3,4 +3,5 @@
 *.env
 cijfers.json
 index.js
+*.js
 calendar.ics

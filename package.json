@@ -3,7 +3,7 @@
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "ical-generator": "^8.0.0",
-    "somtoday.js": "github:FurriousFox/somtoday.js#patch-1"
+    "somtoday.js": "^1.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
