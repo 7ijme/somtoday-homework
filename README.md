@@ -12,8 +12,8 @@ Make sure you have nvm installed with node version 20.
 
 1. Clone this repository
 ```bash
-git clone https://github.com/7ijme/homework.git
-cd cijfer-ntfyer
+git clone https://github.com/7ijme/somtoday-homework.git
+cd somtoday-homework
 ```
 2. Install dependencies
 ```bash
